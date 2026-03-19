@@ -1,11 +1,13 @@
-FROM python:3.11-slim
+FROM python:3.11-slim-bookworm
 
 # System deps needed by MediaPipe (OpenGL ES) and video processing (ffmpeg)
+# On Debian Bookworm: libgl1-mesa-glx was replaced by libgl1
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgles2-mesa \
-    libgl1-mesa-glx \
-    libegl1-mesa \
+    libgles2 \
+    libgl1 \
+    libegl1 \
     ffmpeg \
+    libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
